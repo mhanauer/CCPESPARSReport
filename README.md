@@ -13,8 +13,15 @@ library(prettyR)
 library(Hmisc)
 
 setwd("S:/Indiana Research & Evaluation/CCPE/NewGPRAData")
-#base = read.csv("baseline.csv", header = TRUE, na.strings = c(-99, -98, -97))
+base = read.csv("baseline.csv", header = TRUE, na.strings = c(-99, -98, -97))
 dim(base)
+base$baseline_completion_date = mdy(base$baseline_completion_date)
+base = subset(base, baseline_completion_date >= "2019-10-01")
+dim(base)
+base = subset(base, baseline_completion_date <= "2019-12-31")
+range(test$baseline_completion_date)
+dim(base)
+
 
 #Gender How do you describe yourself? 1, Male 2, Female 3, Transgender 5, I do not identify as male, female, or transgender
 
@@ -70,8 +77,3 @@ describe.factor(base$hiv_results_n)
 
 #referred to treatment for positive test check tracking sheet
 ```
-
-
-
-
-
