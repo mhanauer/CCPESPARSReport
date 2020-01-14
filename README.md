@@ -11,6 +11,7 @@ Spars report
 library(psych)
 library(prettyR)
 library(Hmisc)
+library(lubridate)
 
 setwd("S:/Indiana Research & Evaluation/CCPE/NewGPRAData")
 base = read.csv("baseline.csv", header = TRUE, na.strings = c(-99, -98, -97))
@@ -19,11 +20,11 @@ base$baseline_completion_date = mdy(base$baseline_completion_date)
 base = subset(base, baseline_completion_date >= "2019-10-01")
 dim(base)
 base = subset(base, baseline_completion_date <= "2019-12-31")
-range(test$baseline_completion_date)
+range(base$baseline_completion_date)
 dim(base)
 
 
-#Gender How do you describe yourself? 1, Male 2, Female 3, Transgender 5, I do not identify as male, female, or transgender
+#Gender How do you describe yourself? 1 Male, 2 Female, 3 Transgender, 5 I do not identify as male, female, or transgender
 
 describe.factor(base$gender)
 
@@ -46,8 +47,6 @@ describe.factor(base$what_is_your_race_one_or_m___4)
 describe.factor(base$what_is_your_race_one_or_m___5)
 
 #find multiracial 
-
-test_race
 
 test_race = data.frame(White = base$what_is_your_race_one_or_m___1, Black = base$what_is_your_race_one_or_m___2, AmericanIndian = base$what_is_your_race_one_or_m___3, Asian = base$what_is_your_race_one_or_m___4, PacificIslander = base$what_is_your_race_one_or_m___5)
 
