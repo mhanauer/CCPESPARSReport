@@ -14,7 +14,6 @@ library(prettyR)
 
 ####CCPE New GPRA
 setwd("S:/Indiana Research & Evaluation/CCPE/NewGPRAData")
-base_Q1 = read.csv("Year5Q1_baseline.csv", header = TRUE, na.strings = c(-99, -98, -97))
 base = read.csv("CCPE_base_01132020.csv", header = TRUE, na.strings = c(-99, -98, -97))
 month3 = read.csv("CCPE_month3_01132020.csv", header = TRUE, na.strings = c(-99, -98, -97))
 
