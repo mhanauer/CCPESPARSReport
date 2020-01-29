@@ -267,77 +267,6 @@ mar30day_p_change = round((mar30dayMonth3Mean - mar30dayBaseMean)/ mar30dayBaseM
 mar30day_results = data.frame(N = dim(mar30day_Complete)[1], mar30dayBaseMean, mar30dayMonth3Mean, mar30day_p_change)
 mar30day_results
 
-#OPIOIDS
-opi.base=as.numeric(gsub("[ days]", "", matchedDat$Use.prescription.opioid.drugs.without.orders.given.to.you.by.your.doctor..x))
-opi.month3=as.numeric(gsub("[ days]", "", matchedDat$Use.prescription.opioid.drugs.without.orders.given.to.you.by.your.doctor..y))
-opi30day = data.frame(Base = opi.base, Month3 = opi.month3)
-dim(opi30day)
-opi30day_Complete = na.omit(opi30day)
-dim(opi30day_Complete)
-
-describe.factor(opi30day_Complete$Base)
-describe.factor(opi30day_Complete$Month3)
-
-opi30dayBaseMean = round(mean(opi30day_Complete$Base),3)
-opi30dayMonth3Mean = round(mean(opi30day_Complete$Month3),3)
-opi30day_p_change = round((opi30dayMonth3Mean - opi30dayBaseMean)/ opi30dayBaseMean,3)
-
-opi30day_results = data.frame(N = dim(opi30day_Complete)[1], opi30dayBaseMean, opi30dayMonth3Mean, opi30day_p_change)
-opi30day_results
-
-#OTHER PRESCRIPTION DRUGS
-otherrx.base=as.numeric(gsub("[ days]", "", matchedDat$Use.other.prescription.drugs.without.orders.given.to.you.by.your.doctor...Please.exclude.prescription.opioid.drugs..))
-otherrx.month3=as.numeric(gsub("[ days]", "", matchedDat$Use.other.prescription.drugs.without.orders.given.to.you.by.your.doctor...Please.exclude.prescription.opioid.drugs.))
-otherRX = data.frame(Base = otherrx.base, Month3 = otherrx.month3)
-dim(otherRX)
-otherRX_Complete = na.omit(otherRX)
-dim(otherRX_Complete)
-
-describe.factor(otherRX_Complete$Base)
-describe.factor(otherRX_Complete$Month3)
-
-otherRXBaseMean = round(mean(otherRX_Complete$Base),3)
-otherRXMonth3Mean = round(mean(otherRX_Complete$Month3),3)
-otherRX_p_change = round((otherRXMonth3Mean - otherRXBaseMean)/ otherRXBaseMean,3)
-
-otherRX_results = data.frame(N = dim(otherRX_Complete)[1], otherRXBaseMean, otherRXMonth3Mean, otherRX_p_change)
-otherRX_results
-
-#NON-PRESCIRPTION OPIOIDS
-nonrxopi.base=as.numeric(gsub("[ days]", "", matchedDat$Use.non.prescription.opioid.drugs..x))
-nonrxopi.month3=as.numeric(gsub("[ days]", "", matchedDat$Use.non.prescription.opioid.drugs..y))
-nonRXopi = data.frame(Base = nonrxopi.base, Month3 = nonrxopi.month3)
-dim(nonRXopi)
-nonRXopi_Complete = na.omit(nonRXopi)
-dim(nonRXopi_Complete)
-
-describe.factor(nonRXopi_Complete$Base)
-describe.factor(nonRXopi_Complete$Month3)
-
-nonRXopiBaseMean = round(mean(nonRXopi_Complete$Base),3)
-nonRXopiMonth3Mean = round(mean(nonRXopi_Complete$Month3),3)
-nonRXopi_p_change = round((nonRXopiMonth3Mean - nonRXopiBaseMean)/ nonRXopiBaseMean,3)
-
-nonRXopi_results = data.frame(N = dim(nonRXopi_Complete)[1], nonRXopiBaseMean, nonRXopiMonth3Mean, nonRXopi_p_change)
-nonRXopi_results
-
-#ILLICIT DRUGS
-illicit.base=as.numeric(gsub("[ days]", "", matchedDat$Use.any.other.illegal.drugs....please.exclude.marijuana.hashish.and.non.prescription.opioid.drugs.))
-illicit.month3=as.numeric(gsub("[ days]", "", matchedDat$Use.any.other.illegal.drugs...Please.exclude.marijuana.hashish.and.non.prescription.opioid.drugs.))
-illicit = data.frame(Base = illicit.base, Month3 = illicit.month3)
-dim(illicit)
-illicit_Complete = na.omit(illicit)
-dim(illicit_Complete)
-
-describe.factor(illicit_Complete$Base)
-describe.factor(illicit_Complete$Month3)
-
-illicitBaseMean = round(mean(illicit_Complete$Base),3)
-illicitMonth3Mean = round(mean(illicit_Complete$Month3),3)
-illicit_p_change = round((illicitMonth3Mean - illicitBaseMean)/ illicitBaseMean,3)
-
-illicit_results = data.frame(N = dim(illicit_Complete)[1], illicitBaseMean, illicitMonth3Mean, illicit_p_change)
-illicit_results
 
 #OVERALL
 
@@ -365,8 +294,6 @@ describe.factor(yes_month3)
 
 sum_drugs_base= rowSums(drug_use_base_complete)
 sum_drugs_month3= rowSums(drug_use_month3_complete)
-mean(sum_drugs_base)
-mean(sum_drugs_month3)
 dim(drug_use_base_complete)
 mean(drug_use_base_complete$total_days)
 mean(drug_use_month3_complete$total_days)
