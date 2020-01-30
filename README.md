@@ -414,5 +414,49 @@ unprotected_p_change=((Month3-Base)/Base)
 unprotected_p_change
 
 ```
+#####################
+SPARS Report
+#####################
+```{r}
+
+setwd("S:/Indiana Research & Evaluation/CCPE/NewGPRAData")
+base = read.csv("CCPE_base_01132020.csv", header = TRUE, na.strings = c(-99, -98, -97))
+### Set date
+library(lubridate)
+base$baseline_completion_date = mdy(base$baseline_completion_date)
+base$baseline_completion_date
+base_spars_report = subset(base, baseline_completion_date < "2020-01-01")
+base_spars_report = subset(base_spars_report, baseline_completion_date >= "2019-10-01")
+dim(base_spars_report)
+```
+Gender
+Male 1 female 2
+```{r}
+describe.factor(base_spars_report$gender)
+```
+Ethnicity
+```{r}
+describe.factor(base_spars_report$e_nonhispan)
+```
+Race
+1, White | 2, Black or African American | 3, American Indian or Alaska Native | 4, Asian | 5, Native Hawaiian or other Pacific Islander
+
+```{r}
+describe.factor(base_spars_report$what_is_your_race_one_or_m___1)
+describe.factor(base_spars_report$what_is_your_race_one_or_m___2)
+describe.factor(base_spars_report$what_is_your_race_one_or_m___3)
+describe.factor(base_spars_report$what_is_your_race_one_or_m___4)
+describe.factor(base_spars_report$what_is_your_race_one_or_m___5)
+
+base_spars_report_multirace = rowSums(base_spars_report[,8:12])
+base_spars_report_multirace = ifelse(base_spars_report_multirace > 1, 1, 0)
+describe.factor(base_spars_report_multirace)
 
 ```
+Age (everyone is between 18 and 24)
+
+Tested for first time
+```{r}
+describe.factor(base_spars_report$hiv_results_n)
+```
+
