@@ -166,9 +166,6 @@ G3OD_results
 ```{r}
 #G3OH
 
-#CIGARETTES
-#cig.base=as.numeric(gsub("[ days]", "", matchedDat$Smoke.Cigarettes..x))
-#cig.month3=as.numeric(gsub("[ days]", "", matchedDat$Smoke.Cigarettes..y))
 cig.base= matchedDat$cig30d.x
 cig.month3=matchedDat$cig30d.y
 cig30day = data.frame(Base = cig.base, Month3 = cig.month3)
@@ -186,9 +183,6 @@ cig30day_p_change = round((cig30dayMonth3Mean - cig30dayBaseMean)/ cig30dayBaseM
 cig30day_results = data.frame(N = dim(cig30day_Complete)[1], cig30dayBaseMean, cig30dayMonth3Mean, cig30day_p_change)
 cig30day_results
 
-#OTHER TOBACCO
-#tob.base=as.numeric(gsub("[ days]", "", matchedDat$Use.other.tobacco.products..x))
-#tob.month3=as.numeric(gsub("[ days]", "", matchedDat$Use.other.tobacco.products..y))
 
 tob.base=matchedDat$tob30d.x
 tob.month3=matchedDat$tob30d.y
@@ -206,9 +200,6 @@ tob30day_p_change = round((tob30dayMonth3Mean - tob30dayBaseMean)/ tob30dayBaseM
 tob30day_results = data.frame(N = dim(tob30day_Complete)[1], tob30dayBaseMean, tob30dayMonth3Mean, tob30day_p_change)
 tob30day_results
 
-#VAPE 
-#vape.base=as.numeric(gsub("[ days]", "", matchedDat$Use.electronic.vapor.products..x))
-#vape.month3=as.numeric(gsub("[ days]", "", matchedDat$Use.electronic.vapor.products..y))
 
 vape.base=matchedDat$vap30d.x
 vape.month3=matchedDat$vap30d.y
@@ -227,9 +218,6 @@ vap30day_p_change = round((vap30dayMonth3Mean - vap30dayBaseMean)/ vap30dayBaseM
 vap30day_results = data.frame(N = dim(vap30day_Complete)[1], vap30dayBaseMean, vap30dayMonth3Mean, vap30day_p_change)
 vap30day_results
 
-#ALCOHOL
-#alc.base=as.numeric(gsub("[ days]", "", matchedDat$Drink.Alcohol...any.use.at.all..x))
-#alc.month3=as.numeric(gsub("[ days]", "", matchedDat$Drink.Alcohol...any.use.at.all..y))
 
 alc.base=matchedDat$alc30d.x
 alc.month3=matchedDat$alc30d.y
@@ -248,9 +236,7 @@ alc30day_p_change = round((alc30dayMonth3Mean - alc30dayBaseMean)/ alc30dayBaseM
 alc30day_results = data.frame(N = dim(alc30day_Complete)[1], alc30dayBaseMean, alc30dayMonth3Mean, alc30day_p_change)
 alc30day_results
 
-#MARIJUANA
-#mj.base=as.numeric(gsub("[ days]", "", matchedDat$Use.marijuana.or.hashish..x))
-#mj.month3=as.numeric(gsub("[ days]", "", matchedDat$Use.marijuana.or.hashish..y))
+
 
 mj.base=matchedDat$mj30d.x
 mj.month3=matchedDat$mj30d.y
@@ -292,13 +278,6 @@ drug_use_dat_complete
 
 drug_use_dat_results = data.frame(base_mean = mean(drug_use_dat_complete$base), month3_mean = mean(drug_use_dat_complete$month3), p_change = (mean(drug_use_dat_complete$month3)-mean(drug_use_dat_complete$base))/mean(drug_use_dat_complete$base), n = dim(drug_use_dat_complete)[1])
 drug_use_dat_results
-
-drug_use_dat
-dim(drug_use_month3_complete)
-
-drug_use_month3_complete
-
-
 ``` 
 
 ```{r}
