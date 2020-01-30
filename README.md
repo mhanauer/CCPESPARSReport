@@ -19,6 +19,14 @@ month3 = read.csv("CCPE_month3_01132020.csv", header = TRUE, na.strings = c(-99,
 
 dim(base_Q1)
 #112 new partipants this quarter, total of 1,380
+### Make sure number of new people matches the tracker
+base$baseline_completion_date = mdy(base$baseline_completion_date)
+base_Q1 = subset(base, baseline_completion_date < "2020-01-01")
+base_Q1 = subset(base_Q1, baseline_completion_date >= "2019-10-01")
+dim(base_Q1)
+### Limit to just the quarter
+
+base = subset(base, baseline_completion_date < "2020-01-01")
 
 #Cleaning data need to merge them
 
@@ -37,17 +45,12 @@ matchedDat$ID == month3$ID
 rename participant ID in matchedDat
 rename research ID in birthdate
 ```{r}
-birthdate=data.frame(birthdate=base$what_is_your_date_of_birth, ID=base$participant_id)
-birthdate_complete=na.omit(birthdate)
-basedate= data.frame(basedate=base$baseline_completion_date, ID=base$participant_id)
-basedate_complete=na.omit(basedate)
-agedata=merge(birthdate_complete, basedate_complete, by="ID", all.x = TRUE)
-agedata$birthdate = mdy(agedata$birthdate)
-agedata$basedate = mdy(agedata$basedate)
+age_data =data.frame(birthdate=base$what_is_your_date_of_birth, ID=base$participant_id, base_date = base$baseline_completion_date)
+age_data_complete=na.omit(age_data)
+age_data$birthdate = mdy(age_data$birthdate)
 library(eeptools)
-agedata2=na.omit(agedata)
-agedata2=subset(agedata2, birthdate<"2002-01-01")
-agedata2$age = age_calc(dob=agedata2$birthdate, enddate=agedata2$basedate)
+agedata2=na.omit(age_data)
+agedata2$age = age_calc(dob=agedata2$birthdate, enddate=agedata2$base_date)
 agedata2
 mean(agedata2$age)/12
 ```
@@ -271,31 +274,31 @@ mar30day_results
 
 drug_use_base=data.frame(cig.base, tob.base, vape.base, alc.base, mj.base)
 
-drug_use_base_complete=na.omit(drug_use_base)
-dim(drug_use_base_complete)
+dim(drug_use_base)
 
-drug_use_base_complete$total_days=(drug_use_base_complete$cig.base + drug_use_base_complete$tob.base+ drug_use_base_complete$vape.base+ drug_use_base_complete$alc.base+ drug_use_base_complete$mj.base)
+drug_use_base$total_days=(drug_use_base$cig.base + drug_use_base$tob.base+ drug_use_base$vape.base+ drug_use_base$alc.base+ drug_use_base$mj.base)
 
-yes_base = drug_use_base_complete$total_days>=1
-describe.factor(yes_base)
 
 drug_use_month3=data.frame(cig.month3, tob.month3, vape.month3, alc.month3, mj.month3)
 
-drug_use_month3_complete=na.omit(drug_use_month3)
+dim(drug_use_month3)
+
+drug_use_month3$total_days=(drug_use_month3$cig.month3 + drug_use_month3$tob.month3+ drug_use_month3$vape.month3+ drug_use_month3$alc.month3+ drug_use_month3$mj.month3)
+
+drug_use_dat= data.frame(base = drug_use_base$total_days, month3 = drug_use_month3$total_days)
+drug_use_dat_complete = na.omit(drug_use_dat) 
+dim(drug_use_dat_complete)
+drug_use_dat_complete
+
+drug_use_dat_results = data.frame(base_mean = mean(drug_use_dat_complete$base), month3_mean = mean(drug_use_dat_complete$month3), p_change = (mean(drug_use_dat_complete$month3)-mean(drug_use_dat_complete$base))/mean(drug_use_dat_complete$base), n = dim(drug_use_dat_complete)[1])
+drug_use_dat_results
+
+drug_use_dat
 dim(drug_use_month3_complete)
 
-drug_use_month3_complete$total_days=(drug_use_month3_complete$cig.month3 + drug_use_month3_complete$tob.month3+ drug_use_month3_complete$vape.month3+ drug_use_month3_complete$alc.month3+ drug_use_month3_complete$mj.month3)
+drug_use_month3_complete
 
-dim(drug_use_month3_complete)
 
-yes_month3 = drug_use_month3_complete$total_days>=1
-describe.factor(yes_month3)
-
-sum_drugs_base= rowSums(drug_use_base_complete)
-sum_drugs_month3= rowSums(drug_use_month3_complete)
-dim(drug_use_base_complete)
-mean(drug_use_base_complete$total_days)
-mean(drug_use_month3_complete$total_days)
 ``` 
 
 ```{r}
