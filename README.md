@@ -3,7 +3,7 @@
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-
+You have to copy and paste the baseline dates from csv into R and back into csv
 ```{r}
 
 library(lubridate)
@@ -14,20 +14,29 @@ library(prettyR)
 
 ####CCPE New GPRA
 setwd("S:/Indiana Research & Evaluation/CCPE/NewGPRAData")
-base = read.csv("CCPE_base_01132020.csv", header = TRUE, na.strings = c(-99, -98, -97))
-month3 = read.csv("CCPE_month3_01132020.csv", header = TRUE, na.strings = c(-99, -98, -97))
-
-dim(base_Q1)
-#112 new partipants this quarter, total of 1,380
+base = read.csv("NEWCCPEBaseline_DATA_2020-04-01_0755.csv", header = TRUE, na.strings = c(-99, -98, -97))
+month3 = read.csv("NEWCCPEFollowUp_DATA_2020-04-01_0500.csv", header = TRUE, na.strings = c(-99, -98, -97))
+dim(base)
+library(lubridate)
 ### Make sure number of new people matches the tracker
 base$baseline_completion_date = mdy(base$baseline_completion_date)
-base_Q1 = subset(base, baseline_completion_date < "2020-01-01")
+base_Q2 = subset(base, baseline_completion_date < "2020-04-01")
+
+base_Q2 = subset(base_Q2, baseline_completion_date >= "2020-01-01")
+dim(base_Q2)
+base_Q2 = base_Q2[c("participant_id", "baseline_completion_date")]
+write.csv(base_Q2, "base_Q2.csv", row.names = FALSE)
+
+### Limit to just the quarter
+dim(base_Q2)#27 
+base_Q1 = subset(base, baseline_completion_date < "2020-1-01")
 base_Q1 = subset(base_Q1, baseline_completion_date >= "2019-10-01")
 dim(base_Q1)
-### Limit to just the quarter
-
-base = subset(base, baseline_completion_date < "2020-01-01")
-
+# 2658 where is this person going?
+base_Q1_2 = subset(base, baseline_completion_date < "2020-04-01")
+base_Q1_2 = subset(base_Q1_2, baseline_completion_date >= "2019-10-01")
+base_Q1_2 =  base_Q1_2[c("participant_id", "baseline_completion_date")]
+dim(base_Q1_2)
 #Cleaning data need to merge them
 
 base$ID= base$participant_id
@@ -50,6 +59,8 @@ age_data_complete=na.omit(age_data)
 age_data$birthdate = mdy(age_data$birthdate)
 library(eeptools)
 agedata2=na.omit(age_data)
+agedata2 = subset(agedata2, birthdate < "2019-01-01")
+agedata2
 agedata2$age = age_calc(dob=agedata2$birthdate, enddate=agedata2$base_date)
 agedata2
 mean(agedata2$age)/12
@@ -57,7 +68,6 @@ mean(agedata2$age)/12
 
 ```{r}
 #Goal Three Objective A: Increase knowledge about SA by 20%.
-
 #know_sa Would you know where to go near where you live to see a health care professional regarding a drug or alcohol problem? Yes = 1 No = 0
 
 matchedDat$know_SA.x= matchedDat$know_sa.x
