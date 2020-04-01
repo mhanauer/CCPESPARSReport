@@ -52,6 +52,8 @@ matchedDat$ID == month3$ID
 ```
 rename participant ID in matchedDat
 rename research ID in birthdate
+
+Remove person with birth date 4-1-1820
 ```{r}
 age_data =data.frame(birthdate=base$what_is_your_date_of_birth, ID=base$participant_id, base_date = base$baseline_completion_date)
 age_data_complete=na.omit(age_data)
