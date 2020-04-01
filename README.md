@@ -21,7 +21,6 @@ library(lubridate)
 ### Make sure number of new people matches the tracker
 base$baseline_completion_date = mdy(base$baseline_completion_date)
 base_Q2 = subset(base, baseline_completion_date < "2020-04-01")
-
 base_Q2 = subset(base_Q2, baseline_completion_date >= "2020-01-01")
 dim(base_Q2)
 base_Q2 = base_Q2[c("participant_id", "baseline_completion_date")]
@@ -401,7 +400,7 @@ unprotected_Complete$people_Month3=(unprotected_Complete$maleMonth3==1|unprotect
 Month3=sum(unprotected_Complete$people_Month3)
 Month3
 Month3/91
-
+dim(unprotected)
 unprotected_p_change=((Month3-Base)/Base)
 unprotected_p_change
 
@@ -410,15 +409,8 @@ unprotected_p_change
 SPARS Report
 #####################
 ```{r}
-
-setwd("S:/Indiana Research & Evaluation/CCPE/NewGPRAData")
-base = read.csv("CCPE_base_01132020.csv", header = TRUE, na.strings = c(-99, -98, -97))
-### Set date
-library(lubridate)
-base$baseline_completion_date = mdy(base$baseline_completion_date)
-base$baseline_completion_date
-base_spars_report = subset(base, baseline_completion_date < "2020-01-01")
-base_spars_report = subset(base_spars_report, baseline_completion_date >= "2019-10-01")
+base_spars_report = subset(base, baseline_completion_date < "2020-04-01")
+base_spars_report = subset(base_spars_report, baseline_completion_date >= "2020-1-01")
 dim(base_spars_report)
 ```
 Gender
