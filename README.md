@@ -31,7 +31,7 @@ dim(base_Q2)#27
 base_Q1 = subset(base, baseline_completion_date < "2020-1-01")
 base_Q1 = subset(base_Q1, baseline_completion_date >= "2019-10-01")
 dim(base_Q1)
-# 2658 where is this person going?
+
 base_Q1_2 = subset(base, baseline_completion_date < "2020-04-01")
 base_Q1_2 = subset(base_Q1_2, baseline_completion_date >= "2019-10-01")
 base_Q1_2 =  base_Q1_2[c("participant_id", "baseline_completion_date")]
@@ -61,7 +61,8 @@ age_data$birthdate = mdy(age_data$birthdate)
 library(eeptools)
 agedata2=na.omit(age_data)
 agedata2 = subset(agedata2, birthdate < "2019-01-01")
-agedata2
+dim(agedata2)
+agedata2 = subset(agedata2, birthdate > "1990-01-01")
 agedata2$age = age_calc(dob=agedata2$birthdate, enddate=agedata2$base_date)
 agedata2
 mean(agedata2$age)/12
@@ -287,17 +288,20 @@ drug_use_dat_complete = na.omit(drug_use_dat)
 dim(drug_use_dat_complete)
 drug_use_dat_complete
 
+
+
 drug_use_dat_results = data.frame(base_mean = mean(drug_use_dat_complete$base), month3_mean = mean(drug_use_dat_complete$month3), p_change = (mean(drug_use_dat_complete$month3)-mean(drug_use_dat_complete$base))/mean(drug_use_dat_complete$base), n = dim(drug_use_dat_complete)[1])
 drug_use_dat_results
 ``` 
 
 ```{r}
 #Goal 3, Obj M: Decrease STD incidence
+std.all = matchedDat[c("std30.x", "std30.y")]
+std.all
+std.all = na.omit(std.all)
+describe.factor(std.all$std30.x)
+describe.factor(std.all$std30.y)
 
-std.base=matchedDat$std30.x
-describe.factor(std.base)
-std.month3=matchedDat$std30.y
-describe.factor(std.month3)
 ```
 
 
@@ -402,7 +406,7 @@ unprotected_Complete$people_Month3=(unprotected_Complete$maleMonth3==1|unprotect
 Month3=sum(unprotected_Complete$people_Month3)
 Month3
 Month3/91
-dim(unprotected)
+dim(unprotected_Complete)
 unprotected_p_change=((Month3-Base)/Base)
 unprotected_p_change
 
