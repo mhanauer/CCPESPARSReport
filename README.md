@@ -14,28 +14,17 @@ library(prettyR)
 
 ####CCPE New GPRA
 setwd("S:/Indiana Research & Evaluation/CCPE/NewGPRAData")
-base = read.csv("NEWCCPEBaseline_DATA_2020-04-01_0755.csv", header = TRUE, na.strings = c(-99, -98, -97))
-month3 = read.csv("NEWCCPEFollowUp_DATA_2020-04-01_0500.csv", header = TRUE, na.strings = c(-99, -98, -97))
+base = read.csv("NEWCCPEBaseline_DATA_2020-06-25_0816.csv", header = TRUE, na.strings = c(-99, -98, -97))
+month3 = read.csv("NEWCCPEFollowUp_DATA_2020-06-25_0817.csv", header = TRUE, na.strings = c(-99, -98, -97))
 dim(base)
 library(lubridate)
 ### Make sure number of new people matches the tracker
 base$baseline_completion_date = mdy(base$baseline_completion_date)
-base_Q2 = subset(base, baseline_completion_date < "2020-04-01")
-base_Q2 = subset(base_Q2, baseline_completion_date >= "2020-01-01")
-dim(base_Q2)
-base_Q2 = base_Q2[c("participant_id", "baseline_completion_date")]
-write.csv(base_Q2, "base_Q2.csv", row.names = FALSE)
 
-### Limit to just the quarter
-dim(base_Q2)#27 
-base_Q1 = subset(base, baseline_completion_date < "2020-1-01")
-base_Q1 = subset(base_Q1, baseline_completion_date >= "2019-10-01")
-dim(base_Q1)
+base_test = data.frame(participant_id =  base$participant_id, baseline_completion_date = base$baseline_completion_date)
+base_test = subset(base_test, baseline_completion_date > "2020-01-01")
+write.csv(base_test, "base_test.csv", row.names = FALSE)
 
-base_Q1_2 = subset(base, baseline_completion_date < "2020-04-01")
-base_Q1_2 = subset(base_Q1_2, baseline_completion_date >= "2019-10-01")
-base_Q1_2 =  base_Q1_2[c("participant_id", "baseline_completion_date")]
-dim(base_Q1_2)
 #Cleaning data need to merge them
 
 base$ID= base$participant_id
@@ -301,7 +290,6 @@ std.all
 std.all = na.omit(std.all)
 describe.factor(std.all$std30.x)
 describe.factor(std.all$std30.y)
-
 ```
 
 
