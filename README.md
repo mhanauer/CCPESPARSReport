@@ -288,6 +288,7 @@ drug_use_dat_results
 std.all = matchedDat[c("std30.x", "std30.y")]
 std.all
 std.all = na.omit(std.all)
+dim(std.all)
 describe.factor(std.all$std30.x)
 describe.factor(std.all$std30.y)
 ```
@@ -399,6 +400,14 @@ unprotected_p_change=((Month3-Base)/Base)
 unprotected_p_change
 
 ```
+##################
+Grant summary report
+####################
+```{r}
+describe.factor(base$gender)
+
+```
+
 #####################
 SPARS Report
 #####################
@@ -410,7 +419,13 @@ dim(base_spars_report)
 Gender
 Male 1 female 2
 ```{r}
-describe.factor(base_spars_report$gender)
+describe.factor(base$gender)
+describe.factor(base$what_is_your_race_one_or_m___1)
+describe.factor(base$what_is_your_race_one_or_m___2)
+describe.factor(base$what_is_your_race_one_or_m___3)
+describe.factor(base$what_is_your_race_one_or_m___4)
+describe.factor(base$what_is_your_race_one_or_m___5)
+describe.factor(base$e_nonhispan)
 ```
 Ethnicity
 ```{r}
